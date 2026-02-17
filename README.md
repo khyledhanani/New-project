@@ -27,6 +27,7 @@ pip install -r requirements.txt
 
 Notes:
 
+- Python `3.10+` is required for the Unsloth runner.
 - Use a CUDA-enabled PyTorch build compatible with your local NVIDIA driver.
 - If `bf16` is unavailable, scripts automatically switch to `fp16`.
 

@@ -3,12 +3,20 @@ from __future__ import annotations
 
 import argparse
 import inspect
+import sys
 from pathlib import Path
 from typing import Any
 
 import torch
-from trl import GRPOConfig, GRPOTrainer
+if sys.version_info < (3, 10):
+    raise SystemExit(
+        "Unsloth benchmark requires Python 3.10+ (detected "
+        f"{sys.version_info.major}.{sys.version_info.minor})."
+    )
+
+# Import unsloth before TRL/transformers/peft so its patches are applied.
 from unsloth import FastLanguageModel, PatchFastRL
+from trl import GRPOConfig, GRPOTrainer
 
 from benchmark.data import make_arithmetic_samples, to_hf_dataset
 from benchmark.metrics import CSVStepMetricsCallback, ThroughputEstimate
