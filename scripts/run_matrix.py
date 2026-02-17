@@ -54,6 +54,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--grad-accum", type=int, default=2)
     parser.add_argument("--max-prompt-length", type=int, default=256)
     parser.add_argument("--max-completion-length", type=int, default=128)
+    parser.add_argument("--dtype", choices=["auto", "fp16", "bf16"], default="fp16")
     parser.add_argument("--output-root", type=Path, default=Path("outputs/matrix"))
     return parser.parse_args()
 
@@ -102,6 +103,8 @@ def main() -> None:
                         str(args.max_prompt_length),
                         "--max-completion-length",
                         str(args.max_completion_length),
+                        "--dtype",
+                        args.dtype,
                     ]
 
                     run_command(cmd)

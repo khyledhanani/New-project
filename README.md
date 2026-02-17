@@ -63,6 +63,7 @@ TRL GRPO:
 python scripts/run_trl_rl.py \
   --model-name Qwen/Qwen2.5-3B-Instruct \
   --mode grpo \
+  --dtype fp16 \
   --max-steps 200 \
   --batch-size 2 \
   --num-generations 4 \
@@ -75,6 +76,7 @@ TRL GSPO:
 python scripts/run_trl_rl.py \
   --model-name Qwen/Qwen2.5-3B-Instruct \
   --mode gspo \
+  --dtype fp16 \
   --max-steps 200 \
   --batch-size 2 \
   --num-generations 4 \
@@ -92,6 +94,7 @@ python scripts/run_matrix.py \
   --modes grpo,gspo \
   --num-generations 2,4,8 \
   --batch-sizes 1,2 \
+  --dtype fp16 \
   --max-steps 120
 ```
 
