@@ -68,6 +68,18 @@ def resolve_dtype(dtype_arg: str) -> tuple[torch.dtype, bool, bool]:
     return torch.float16, False, True
 
 
+def compute_generation_batch_size(
+    batch_size: int,
+    grad_accum: int,
+    num_generations: int,
+) -> int:
+    effective_batch = max(1, batch_size * grad_accum)
+    if effective_batch % num_generations == 0:
+        return effective_batch
+    multiplier = (effective_batch + num_generations - 1) // num_generations
+    return multiplier * num_generations
+
+
 def main() -> None:
     args = parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
@@ -113,6 +125,11 @@ def main() -> None:
         "max_prompt_length": args.max_prompt_length,
         "max_completion_length": args.max_completion_length,
         "num_generations": args.num_generations,
+        "generation_batch_size": compute_generation_batch_size(
+            batch_size=args.batch_size,
+            grad_accum=args.grad_accum,
+            num_generations=args.num_generations,
+        ),
         "gradient_checkpointing": True,
         "bf16": use_bf16,
         "fp16": use_fp16,
