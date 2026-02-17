@@ -94,6 +94,7 @@ python scripts/run_matrix.py \
   --modes grpo,gspo \
   --num-generations 2,4,8 \
   --batch-sizes 1,2 \
+  --seeds 17,23,31 \
   --dtype fp16 \
   --max-steps 120
 ```
