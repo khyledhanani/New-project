@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import inspect
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -10,6 +11,11 @@ import torch
 from peft import LoraConfig
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 from trl import GRPOConfig, GRPOTrainer
+
+# Ensure project-root imports work regardless of launch directory.
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 from benchmark.data import make_arithmetic_samples, to_hf_dataset
 from benchmark.metrics import CSVStepMetricsCallback, ThroughputEstimate

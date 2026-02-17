@@ -7,6 +7,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
 
 def parse_int_list(raw: str) -> list[int]:
     return [int(item.strip()) for item in raw.split(",") if item.strip()]
@@ -14,7 +16,7 @@ def parse_int_list(raw: str) -> list[int]:
 
 def run_command(cmd: list[str]) -> None:
     print(" ".join(cmd), flush=True)
-    subprocess.run(cmd, check=True)
+    subprocess.run(cmd, check=True, cwd=PROJECT_ROOT)
 
 
 def summarize_metrics(metrics_file: Path) -> dict[str, str]:

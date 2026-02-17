@@ -18,6 +18,11 @@ if sys.version_info < (3, 10):
 from unsloth import FastLanguageModel, PatchFastRL
 from trl import GRPOConfig, GRPOTrainer
 
+# Ensure project-root imports work regardless of launch directory.
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
 from benchmark.data import make_arithmetic_samples, to_hf_dataset
 from benchmark.metrics import CSVStepMetricsCallback, ThroughputEstimate
 from benchmark.reward import exact_arithmetic_reward
