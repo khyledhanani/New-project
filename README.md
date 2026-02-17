@@ -102,6 +102,35 @@ Per-run step metrics are written to:
 
 - `outputs/matrix/<run_name>/metrics.csv`
 
+## Analyze results
+
+Rank and aggregate runs (including repeat-aware p10/median/p90 throughput):
+
+```bash
+python scripts/analyze_results.py \
+  --input outputs/matrix/summary.csv \
+  --output-dir outputs/matrix/analysis \
+  --vram-cap-gb 15.5 \
+  --top-n 20
+```
+
+Outputs:
+
+- `outputs/matrix/analysis/ranked_configs.csv`
+- `outputs/matrix/analysis/ranked_configs.md`
+
+Optional charts:
+
+```bash
+pip install matplotlib
+python scripts/analyze_results.py --plot
+```
+
+Plot files:
+
+- `outputs/matrix/analysis/ranked_median_tps.png`
+- `outputs/matrix/analysis/ranked_peak_vram.png`
+
 ## Practical defaults for 16GB 4070 Ti Super
 
 - Start with `Qwen/Qwen2.5-3B-Instruct`
